@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,9 @@ namespace AsyncInterceptor
 {
     public class LogInterceptorAsync : IAsyncInterceptor
     {
-        private readonly ILogger<LogInterceptorAsync> _logger;
-
-        public LogInterceptorAsync(ILogger<LogInterceptorAsync> logger)
+        public LogInterceptorAsync()
         {
-            _logger = logger;
+            
         }
 
         /// <summary>
@@ -46,7 +45,11 @@ namespace AsyncInterceptor
             {
                 //调用业务方法
                 invocation.Proceed();
-                LogExecuteInfo(invocation, invocation.ReturnValue.ToJsonString());//记录日志
+
+                if (invocation.ReturnValue is Task task) 
+                {
+                    LogExecuteInfo(invocation, "");//记录日志
+                }
             }
             catch (Exception ex)
             {
@@ -114,12 +117,12 @@ namespace AsyncInterceptor
 
         private void LogExecuteInfo(IInvocation invocation, string result)
         {
-            _logger.LogDebug("方法{0}，返回值{1}", GetMethodInfo(invocation), result);
+            Trace.TraceInformation("方法{0}，返回值{1}", GetMethodInfo(invocation), result);
         }
 
         private void LogExecuteError(Exception ex, IInvocation invocation)
         {
-            _logger.LogError(ex, "执行{0}时发生错误！", GetMethodInfo(invocation));
+            Trace.TraceError("执行{0}时发生错误{1}！", GetMethodInfo(invocation), ex.Message);
         }
 
         #endregion

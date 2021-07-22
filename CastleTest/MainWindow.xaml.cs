@@ -1,4 +1,7 @@
-﻿using Castle.DynamicProxy;
+﻿using AsyncInterceptor;
+using Castle.DynamicProxy;
+using Interceptor;
+using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,8 +25,14 @@ namespace CastleTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ProxyGenerator generator = new ProxyGenerator();
+        private readonly TestB test;
+
+        public MainWindow(IContainerExtension container)
         {
+            var logInterceptor = container.Resolve<LogInterceptor>();
+            test = generator.CreateClassProxy<TestB>(logInterceptor);
+
             InitializeComponent();
         }
 
@@ -40,11 +49,19 @@ namespace CastleTest
             test.GetResult();
         }
 
-        private void buttonAsync_Click(object sender, RoutedEventArgs e)
+        private void buttonSynchronous_Click(object sender, RoutedEventArgs e)
         {
-            ProxyGenerator generator = new ProxyGenerator();
+            test.GetResultWithArgument(DateTime.Now);
+        }
 
-            
+        private async void buttonAction_Click(object sender, RoutedEventArgs e)
+        {
+            await test.TestActionAsync();
+        }
+
+        private async void buttonAsync_Click(object sender, RoutedEventArgs e)
+        {
+            await test.GetResultAsync();
         }
     }
 }

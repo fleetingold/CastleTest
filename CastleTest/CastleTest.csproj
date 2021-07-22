@@ -11,4 +11,9 @@
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AsyncInterceptor\AsyncInterceptor.csproj" />
+    <ProjectReference Include="..\Interceptor\Interceptor.csproj" />
+  </ItemGroup>
+
 </Project>

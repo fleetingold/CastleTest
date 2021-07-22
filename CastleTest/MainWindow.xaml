@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
-        <Button x:Name="button" Width="80" Height="30" Content="Click me" Click="button_Click"/>
-        <Button x:Name="buttonAsync" Width="80" Height="30" Content="Click me too" Click="buttonAsync_Click"/>
+        <Button x:Name="button" Width="120" Height="30" Content="Click me" Click="button_Click"/>
+        <Button x:Name="buttonSynchronous" Width="120" Height="30" Content="Click Synchronous" Click="buttonSynchronous_Click"/>
+        <Button x:Name="buttonAction" Width="120" Height="30" Content="Click Action" Click="buttonAction_Click"/>
+        <Button x:Name="buttonAsync" Width="120" Height="30" Content="Click Async" Click="buttonAsync_Click"/>
     </StackPanel>
 </Window>

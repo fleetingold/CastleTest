@@ -16,11 +16,31 @@ namespace CastleTest
             return str;
         }
 
-        public virtual string GetResult2()
+        public virtual string GetResultWithArgument(DateTime dt)
         {
             string str = DateTime.Now + "TestB-GetResult2";
             Trace.WriteLine(str);
             return str;
+        }
+
+        public virtual Task TestActionAsync() 
+        {
+            return Task.Factory.StartNew(async () => 
+            {
+                await Task.Delay(5000);
+
+                Trace.TraceError("Hello From TestActionAsync");
+            });
+        }
+
+        public async virtual Task<string> GetResultAsync() 
+        {
+            return await Task.Run(async () => 
+            {
+                await Task.Delay(5000);
+
+                return "Hello From GetResultAsync";
+            });
         }
     }
 }

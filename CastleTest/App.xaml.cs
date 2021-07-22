@@ -17,7 +17,8 @@ namespace CastleTest
         {
             base.OnStartup(e);
 
-            var bootstrapper = new Bootstrapper();
+            //var bootstrapper = new Bootstrapper();
+            var bootstrapper = CastleInterceptor.CreateProxy<Bootstrapper>();
             bootstrapper.Run();
         }
     }

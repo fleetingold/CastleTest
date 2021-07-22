@@ -24,5 +24,10 @@ namespace CastleTest
         {
             InitializeComponent();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            CastleInterceptor.CreateProxy<TestB>().GetResult();
+        }
     }
 }

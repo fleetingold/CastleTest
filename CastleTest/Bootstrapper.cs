@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace CastleTest
 {
-    class Bootstrapper : PrismBootstrapper
+    public class Bootstrapper : PrismBootstrapper
     {
         protected override DependencyObject CreateShell()
         {

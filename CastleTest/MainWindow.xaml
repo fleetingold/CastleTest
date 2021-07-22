@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:CastleTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <StackPanel>
         <Button x:Name="button" Width="80" Height="30" Content="Click me" Click="button_Click"/>
-    </Grid>
+        <Button x:Name="buttonAsync" Width="80" Height="30" Content="Click me too" Click="buttonAsync_Click"/>
+    </StackPanel>
 </Window>

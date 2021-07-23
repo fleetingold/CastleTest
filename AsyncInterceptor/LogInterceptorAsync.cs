@@ -41,15 +41,48 @@ namespace AsyncInterceptor
         /// <param name="invocation"></param>
         public void InterceptAsynchronous(IInvocation invocation)
         {
+            #region 第一种处理
+            //try
+            //{
+            //    //调用业务方法
+            //    //invocation.Proceed();
+
+            //    if (invocation.ReturnValue is Task task) 
+            //    {
+            //        LogExecuteInfo(invocation, "");//记录日志
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogExecuteError(ex, invocation);
+            //    throw new AopHandledException();
+            //}
+            #endregion
+
+            #region 第二种处理
+            //Castle.Core -> AsyncInterceptor
+            //调用业务方法
+            invocation.ReturnValue = InternalInterceptAsynchronous(invocation);
+            #endregion
+        }
+
+        private async Task InternalInterceptAsynchronous(IInvocation invocation)
+        {
             try
             {
-                //调用业务方法
-                invocation.Proceed();
+                var proceed = invocation.CaptureProceedInfo();
 
-                if (invocation.ReturnValue is Task task) 
-                {
-                    LogExecuteInfo(invocation, "");//记录日志
-                }
+                await Task.Delay(10).ConfigureAwait(false);
+
+                proceed.Invoke();
+
+                // Return value is being set in two situations, but this doesn't matter
+                // for the above test.
+                Task returnValue = (Task)invocation.ReturnValue;
+
+                await returnValue.ConfigureAwait(false);
+
+                LogExecuteInfo(invocation, invocation.ReturnValue.ToString());//记录日志
             }
             catch (Exception ex)
             {

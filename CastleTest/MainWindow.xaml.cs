@@ -36,7 +36,7 @@ namespace CastleTest
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
             var test = CastleInterceptor.CreateProxy<TestB>();
 
@@ -46,7 +46,7 @@ namespace CastleTest
             //当前类型: Castle.Proxies.TestBProxy, 父类型: CastleTest.TestB
             Trace.WriteLine($"当前类型: {test.GetType()}, 父类型: {test.GetType().BaseType}");
 
-            test.GetResult();
+            await test.TestActionAsync();
         }
 
         private void buttonSynchronous_Click(object sender, RoutedEventArgs e)

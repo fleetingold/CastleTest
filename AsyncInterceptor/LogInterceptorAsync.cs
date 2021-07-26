@@ -22,6 +22,8 @@ namespace AsyncInterceptor
         /// <param name="invocation"></param>
         public void InterceptSynchronous(IInvocation invocation)
         {
+            // Step 1. Do something prior to invocation.
+
             try
             {
                 //调用业务方法
@@ -33,6 +35,8 @@ namespace AsyncInterceptor
                 LogExecuteError(ex, invocation);
                 throw new AopHandledException();
             }
+
+            // Step 2. Do something after invocation.
         }
 
         /// <summary>
@@ -41,6 +45,8 @@ namespace AsyncInterceptor
         /// <param name="invocation"></param>
         public void InterceptAsynchronous(IInvocation invocation)
         {
+            // Step 1. Do something prior to invocation.
+
             #region 第一种处理
             //try
             //{
@@ -64,6 +70,8 @@ namespace AsyncInterceptor
             //调用业务方法
             invocation.ReturnValue = InternalInterceptAsynchronous(invocation);
             #endregion
+
+            // Step 2. Do something after invocation.
         }
 
         private async Task InternalInterceptAsynchronous(IInvocation invocation)
@@ -104,6 +112,8 @@ namespace AsyncInterceptor
 
         private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation)
         {
+            // Step 1. Do something prior to invocation.
+
             try
             {
                 //调用业务方法
@@ -119,6 +129,8 @@ namespace AsyncInterceptor
                 LogExecuteError(ex, invocation);
                 throw new AopHandledException();
             }
+
+            // Step 2. Do something after invocation.
         }
 
         #region helpMethod

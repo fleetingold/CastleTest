@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,7 +65,17 @@ namespace CastleTest
                 }
 
                 //b.Methods that return Task<TResult>
+                Type type_result = invocation.ReturnValue?.GetType();
+                //MethodType methodType = MethodType.Synchronous;
+                if (type_result != null && typeof(Task).IsAssignableFrom(type_result))
+                {
+                    //MethodType methodType = MethodType.AsyncAction;
 
+                    if (type_result.GetTypeInfo().IsGenericType)
+                    {
+                        //MethodType methodType = MethodType.AsyncFunction;
+                    }
+                }
             }
             catch (Exception ex)
             {

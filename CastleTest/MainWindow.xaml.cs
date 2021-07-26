@@ -46,7 +46,7 @@ namespace CastleTest
             //当前类型: Castle.Proxies.TestBProxy, 父类型: CastleTest.TestB
             Trace.WriteLine($"当前类型: {test.GetType()}, 父类型: {test.GetType().BaseType}");
 
-            await test.TestActionAsync();
+            await test.GetResultAsync();
         }
 
         private void buttonSynchronous_Click(object sender, RoutedEventArgs e)
